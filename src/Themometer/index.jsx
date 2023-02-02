@@ -8,35 +8,29 @@ import {
   DegreesStyle
 } from './styles';
 
-function pointerValue(percentage){
+function pointerValue(percentage, limit){
   switch (true) {
-    case percentage < 1:
+    case percentage == 0:
+      return parseInt(percentage / 20);
+    case percentage > limit:
       return 0;
-    case percentage >= 1 && percentage < 20:
-      return 1;
-    case percentage >= 20 && percentage < 40:
-      return 2;
-    case percentage >= 40 && percentage < 60:
-      return 3;
-    case percentage >= 60 && percentage < 80:
-      return 4;
-    case percentage >= 80 && percentage <= 100:
-      return 5;
     default:
-      return 0;
+      return parseInt(percentage / 20) + 1;
   }
 };
 
 function Thermometer ({ percentage, maxHeight }) {
-  const calcHeight = maxHeight - ((percentage / 100) * maxHeight);
-  const isFilled = percentage >= 1;
-  const value = pointerValue(percentage);
+  const limit = 100;
+  const calcHeight = maxHeight - ((percentage / limit) * maxHeight);
+  const isFilled = percentage >= 1 && percentage <= limit;
+  const toPositive = Math.abs(percentage);
+  const value = pointerValue(toPositive, limit);
 
   return (
     <ThermometerStyle>
       <ContainerStyle>
         <LayerStyle>
-          <HeightStyle fullHeight={calcHeight} />
+          <HeightStyle pointer={value} fullHeight={calcHeight} />
           <CircleStyle filled={isFilled}>
             <span>{`${percentage}%`}</span>
           </CircleStyle>

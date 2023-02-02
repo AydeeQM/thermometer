@@ -96,7 +96,7 @@ export const HeightStyle = styled.div`
     width: 16px;
   }
   ${(props) =>
-    props.fullHeight &&
+    props.pointer &&
     css`
       &::before {
         animation: ${fadeFilled(props.fullHeight)} 2s ease;

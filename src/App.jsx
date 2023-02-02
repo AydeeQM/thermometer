@@ -5,7 +5,7 @@ function App() {
     <div>
       <h1>Térmometro</h1>
       <div className='container'>
-        <Thermometer percentage={40} />
+        <Thermometer percentage={100} />
       </div>
     </div>
   )
